@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright (C) 2012 Philip Belemezov <philip@belemezov.net>
 #
@@ -24,7 +24,7 @@ if not opts.output:
     parser.error("Please specify output dir using `-o'")
 
 
-ICNS_HEADER = '\x69\x63\x6e\x73'
+ICNS_HEADER = b'\x69\x63\x6e\x73'
 
 
 def bufferToHex(buffer):
@@ -58,8 +58,7 @@ def writeIcon(filename, iconData):
 
 def processIcons(data, outputDir):
     if not os.path.exists(outputDir):
-        print "%s: Output directory %s doesn't exist, please create it first" \
-                % (prog, outputDir)
+        print(f"{prog}: Output directory {outputDir} doesn't exist, please create it first")
         return 1
 
     iconIndex = 1
@@ -71,7 +70,7 @@ def processIcons(data, outputDir):
         assert iconLen == len(iconData)
 
         filename = os.path.join(outputDir, 'icon%d.icns' % iconIndex)
-        print "%s: Writing icon file %s" % (prog, filename)
+        print(f"{prog}: Writing icon file {filename}")
         writeIcon(filename, iconData)
 
         iconIndex += 1
@@ -84,7 +83,7 @@ def main():
     else:
         filename = args[0]
 
-    print "%s: Reading %s" % (prog, filename)
+    print(f"{prog}: Reading {filename}")
     data = None
     with open(filename, "rb") as f:
         data = f.read()
